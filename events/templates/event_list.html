@@ -1,0 +1,18 @@
+<!-- events/templates/events/event_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Event List{% endblock %}
+
+{% block content %}
+  <h2 class="mb-4">Event List</h2>
+  <div class="card-deck">
+    {% for event in events %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{% url 'event_detail' pk=event.slug %}">{{ event.title }}</a></h5>
+          <p class="card-text">Date: {{ event.date }} at {{ event.time }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

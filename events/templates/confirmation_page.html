@@ -1,0 +1,14 @@
+<!-- confirmation_page.html -->
+{% extends 'base.html' %}
+
+{% block title %}Confirmation Page{% endblock %}
+
+{% block content %}
+<h5>Confirmation Page</h5>
+<h1 style="color:red;">{{reason}}</h1>
+{% if not reason%}
+    <p style="color:green;">You have successfully registered for the event:</p>
+{% endif %}
+
+    <!-- Add more event details as needed -->
+{% endblock %}

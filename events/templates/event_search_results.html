@@ -1,0 +1,23 @@
+<!-- templates/event_search_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Event Search Results{% endblock %}
+
+{% block content %}
+  <h2>Event Search Results</h2>
+
+  <form method="get" action="{% url 'event_search' %}">
+    {{ form }}
+    <button type="submit">Search</button>
+  </form>
+
+  {% if events %}
+    <ul>
+      {% for event in events %}
+        <li>{{ event.title }} ({{ event.date }} at {{ event.time }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No events found.</p>
+  {% endif %}
+{% endblock %}

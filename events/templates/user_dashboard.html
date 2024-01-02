@@ -1,0 +1,68 @@
+<!-- templates/user_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Your Created Events</h2>
+    
+    <div class="row">
+        {% if not user_created_events %}
+            <h5> You didn't make any Events. </h5>
+        {% endif %}
+        {% for event in user_created_events %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">{{ event.date }} at {{ event.time }}</p>
+                        <a href="{% url 'event_detail' pk=event.slug %}" class="btn btn-primary">View Details</a>
+                        <a href="{% url 'event_update' pk=event.slug %}" class="btn btn-warning">Update</a>
+                        <a href="{% url 'event_delete' slug=event.slug %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+        <br>
+        <h2> Registered Events</h2>
+        {% if not user_registered_events %}
+            <h5>You didn't register any events</h5>
+        {% endif %}
+        {% for event in user_registered_events %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">{{ event.date }} at {{ event.time }}</p>
+                        <a href="{% url 'event_detail' pk=event.slug %}" class="btn btn-primary">View Details</a>
+
+                        <!-- Form for Unregister button -->
+                        <form method="post" action="{% url 'unregister_from_event' pk=event.slug %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Unregister</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    
+    <!-- Unregister confirmation modals -->
+    {% comment %} {% for event in user_registered_events %}
+        <div class="modal fade" id="confirmUnregisterModal{{ event.slug}}" tabindex="-1" role="dialog" aria-labelledby="confirmUnregisterModalLabel{{ event.slug }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a href="{% url 'unregister_from_event' pk=event.slug %}" class="btn btn-danger">Unregister</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %} {% endcomment %}
+{% endblock %}

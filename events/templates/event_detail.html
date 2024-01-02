@@ -1,0 +1,27 @@
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+  <h2>{{ event.title }}</h2>
+  <p>{{ event.description }}</p>
+  <p>Date: {{ event.date }} at {{ event.time }}</p>
+  <p>Location: {{ event.location_name }}</p>
+  <p>Available Slots: {{ event.available_slots }}</p>
+
+  {% if user.is_authenticated %}
+    {% if user == event.user %}
+      <!-- Only show the list of registered participants to the event creator -->
+      <h3>Registered Participants:</h3>
+      <ul>
+        {% for participant in event.participants.all %}
+          <li>{{ participant.username }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <!-- Only show the registration form to other authenticated users -->
+      <form method="post" action="{% url 'event_registration' pk=event.slug %}">
+        {% csrf_token %}
+        <button type="submit">Register for Event</button>
+      </form>
+    {% endif %}
+  {% endif %}
+{% endblock %}

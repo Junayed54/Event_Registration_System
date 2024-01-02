@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Event Registration Failed{% endblock %}
+
+{% block content %}
+  <h2>Event Registration Failed</h2>
+  <p>Sorry, the registration for this event has failed. Please check the following:</p>
+  <ul>
+    <li>The event may be full, and all available slots have been taken.</li>
+    <li>The registration deadline for this event may have passed.</li>
+    <!-- Add more specific failure reasons if needed -->
+  </ul>
+  <p>If you believe there is an issue, please contact the event organizer.</p>
+  <a href="{% url 'event_list' %}">Back to Event List</a>
+{% endblock %}
