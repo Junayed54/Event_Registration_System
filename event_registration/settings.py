@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
+import dj_database_url
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p)_hph$6s!aq8=m_fhb5d1ze(en!lbpkw!zta+3@(zx^s3*dqf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 
@@ -80,14 +83,9 @@ WSGI_APPLICATION = 'event_registration.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Event_management',
-        'USER': 'postgres',
-        'PASSWORD': 'Ae2ACeaE*g2efDd-c*Ace2a4BBdaB6cc',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '52672',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='postgresql://postgres:BF16g6a5a4*b-3ec531*bBgf*CgE*GA3@viaduct.proxy.rlwy.net:21489/railway')
+    )
 }
 
 
