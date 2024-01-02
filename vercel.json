@@ -24,4 +24,7 @@
             "dest": "event_management/wsgi.py"
         }
     ]
+
+    
 }
+
